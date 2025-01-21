@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { User } from "../@types";
 import { ToastContainer } from "react-toastify";
 
@@ -10,6 +10,7 @@ const DashboardPage = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [usersPerPage, setUsersPerPage] = useState(6);
   const [totalPages, setTotalPages] = useState(0);
+  const navigate = useNavigate();
 
   const fetchUserData = async (
     {
@@ -61,10 +62,24 @@ const DashboardPage = () => {
     setCurrentPage(1); // Reset to the first page when changing users per page
   };
 
+  const handleLogout = () => {
+    localStorage.removeItem("token");
+    navigate("/login");
+  };
+
   return (
     <div className="container mx-auto p-4">
       <ToastContainer />
-      <h1 className="text-2xl font-bold mb-4">User Dashboard</h1>
+      <div className="flex justify-between items-center mb-4">
+        <h1 className="text-2xl font-bold mb-4">User Dashboard</h1>
+        <button
+          className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded mr-2"
+          onClick={handleLogout}
+        >
+          Logout
+        </button>
+      </div>
+
       {isLoading ? (
         <div className="flex items-center justify-center">
           <p>Loading...</p>

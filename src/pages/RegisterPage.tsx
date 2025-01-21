@@ -32,8 +32,6 @@ const RegisterPage = () => {
   const onSubmit = async (data) => {
     setIsLoading(true);
     try {
-      console.log(data);
-
       const response = await fetch("https://reqres.in/api/register", {
         method: "POST",
         headers: {

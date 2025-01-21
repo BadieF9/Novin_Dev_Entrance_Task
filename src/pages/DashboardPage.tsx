@@ -26,8 +26,6 @@ const DashboardPage = () => {
     }
   ) => {
     try {
-      console.log(pageNumber, usersNumberPerPage);
-
       const response = await fetch(
         `https://reqres.in/api/users?page=${pageNumber}&per_page=${usersNumberPerPage}`
       );
@@ -35,7 +33,6 @@ const DashboardPage = () => {
         throw new Error("Failed to fetch users");
       }
       const data = await response.json();
-      console.log(data);
 
       setUsers(data.data);
       setTotalPages(data.total_pages);

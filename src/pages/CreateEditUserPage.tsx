@@ -45,7 +45,6 @@ const CreateEditUserPage = () => {
 
   const onSubmit = async (data: UserCreate) => {
     setIsLoading(true);
-    console.log("data: ", data);
 
     try {
       const method = userId ? "PUT" : "POST";

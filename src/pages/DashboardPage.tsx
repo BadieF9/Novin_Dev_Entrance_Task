@@ -1,13 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-
-interface User {
-  id: number;
-  email: string;
-  first_name: string;
-  last_name: string;
-  avatar: string;
-}
+import { User } from "../@types";
 
 const DashboardPage = () => {
   const [users, setUsers] = useState<User[]>([]);

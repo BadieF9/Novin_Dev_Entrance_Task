@@ -12,6 +12,7 @@ import RegisterPage from "./pages/RegisterPage.tsx";
 import DashboardPage from "./pages/DashboardPage.tsx";
 import AuthComponent from "./components/AuthComponent.tsx";
 import CreateEditUserPage from "./pages/CreateEditUserPage.tsx";
+import { PATH_AUTH, PATH_DASHBOARD } from "./routes/paths.ts";
 
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement
@@ -20,11 +21,11 @@ root.render(
   <React.StrictMode>
     <Router>
       <Routes>
-        <Route path="/" element={<Navigate to="/dashboard" />} />
-        <Route path="/login" element={<LoginPage />} />
-        <Route path="/register" element={<RegisterPage />} />
+        <Route path="/" element={<Navigate to={PATH_DASHBOARD.root} />} />
+        <Route path={PATH_AUTH.login} element={<LoginPage />} />
+        <Route path={PATH_AUTH.register} element={<RegisterPage />} />
         <Route
-          path="/dashboard"
+          path={PATH_DASHBOARD.root}
           element={
             <AuthComponent>
               <DashboardPage />
@@ -32,7 +33,7 @@ root.render(
           }
         />
         <Route
-          path="/users/:userId/edit"
+          path="/dashboard/users/:userId/edit"
           element={
             <AuthComponent>
               <CreateEditUserPage />
@@ -40,7 +41,7 @@ root.render(
           }
         />
         <Route
-          path="/users/create"
+          path={PATH_DASHBOARD.users.create}
           element={
             <AuthComponent>
               <CreateEditUserPage />

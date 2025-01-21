@@ -5,6 +5,7 @@ import { UserCreate } from "../@types";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import { toast, ToastContainer } from "react-toastify";
+import { PATH_DASHBOARD } from "../routes/paths.ts";
 
 const schema = yup.object({
   first_name: yup.string().required("First name is required"),
@@ -75,7 +76,7 @@ const CreateEditUserPage = () => {
       }
 
       setTimeout(() => {
-        navigate("/dashboard");
+        navigate(PATH_DASHBOARD.root);
       }, 4000);
     } catch (error) {
       console.error("Error saving user:", error);

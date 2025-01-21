@@ -3,6 +3,7 @@ import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import { Link, useNavigate } from "react-router-dom";
+import { PATH_AUTH, PATH_DASHBOARD } from "../routes/paths.ts";
 
 const schema = yup.object({
   email: yup.string().email().required("Email is required"),
@@ -51,7 +52,7 @@ const RegisterPage = () => {
       }
 
       localStorage.setItem("token", responseData.token);
-      navigate("/dashboard");
+      navigate(PATH_DASHBOARD.root);
     } catch (error) {
       setErrorMessage(`Register failed. ${error.message}`);
     } finally {
@@ -133,7 +134,7 @@ const RegisterPage = () => {
           >
             Register
           </button>
-          <Link to="/login" className="text-blue-500 hover:underline">
+          <Link to={PATH_AUTH.login} className="text-blue-500 hover:underline">
             Login
           </Link>
           {errorMessage && <p className="text-red-500 mt-2">{errorMessage}</p>}

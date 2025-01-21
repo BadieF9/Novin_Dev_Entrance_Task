@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { User } from "../@types";
 import { ToastContainer } from "react-toastify";
+import { PATH_AUTH, PATH_DASHBOARD } from "../routes/paths.ts";
 
 const DashboardPage = () => {
   const [users, setUsers] = useState<User[]>([]);
@@ -64,7 +65,7 @@ const DashboardPage = () => {
 
   const handleLogout = () => {
     localStorage.removeItem("token");
-    navigate("/login");
+    navigate(PATH_AUTH.login);
   };
 
   return (
@@ -106,7 +107,7 @@ const DashboardPage = () => {
               <option value={12}>12</option>
             </select>
             <Link
-              to="/users/create"
+              to={PATH_DASHBOARD.users.create}
               className="bg-blue-600 hover:bg-blue-800 text-white font-bold py-2 px-4 rounded"
             >
               Create User
@@ -143,7 +144,7 @@ const DashboardPage = () => {
                     </td>
                     <td className="px-4 py-2 border-b text-center">
                       <Link
-                        to={`/users/${user.id}/edit`}
+                        to={PATH_DASHBOARD.users.edit(user.id)}
                         className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mr-2"
                       >
                         Edit

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { User } from "../@types";
-import { ToastContainer } from "react-toastify";
+import { toast, ToastContainer } from "react-toastify";
 import { PATH_AUTH, PATH_DASHBOARD } from "../routes/paths.ts";
 
 const DashboardPage = () => {
@@ -66,6 +66,26 @@ const DashboardPage = () => {
   const handleLogout = () => {
     localStorage.removeItem("token");
     navigate(PATH_AUTH.login);
+  };
+
+  const handleDeleteUser = async (userId: number) => {
+    if (window.confirm("Are you sure you want to delete this user?")) {
+      try {
+        const response = await fetch(`https://reqres.in/api/users/${userId}`, {
+          method: "DELETE",
+        });
+
+        if (response.status !== 204) {
+          throw new Error();
+        }
+
+        setUsers(users.filter((user) => user.id !== userId));
+        toast.success("User deleted successfully!");
+      } catch (err) {
+        console.error("Error deleting user:", err);
+        toast.error("Failed to delete user.", err);
+      }
+    }
   };
 
   return (
@@ -150,7 +170,10 @@ const DashboardPage = () => {
                         Edit
                       </Link>
 
-                      <button className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded">
+                      <button
+                        className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded"
+                        onClick={() => handleDeleteUser(user.id)}
+                      >
                         Delete
                       </button>
                     </td>

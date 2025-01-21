@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { User } from "../@types";
+import { ToastContainer } from "react-toastify";
 
 const DashboardPage = () => {
   const [users, setUsers] = useState<User[]>([]);
@@ -62,8 +63,8 @@ const DashboardPage = () => {
 
   return (
     <div className="container mx-auto p-4">
+      <ToastContainer />
       <h1 className="text-2xl font-bold mb-4">User Dashboard</h1>
-
       {isLoading ? (
         <div className="flex items-center justify-center">
           <p>Loading...</p>
@@ -80,7 +81,7 @@ const DashboardPage = () => {
               id="usersPerPage"
               value={usersPerPage}
               onChange={handlePerPageChange}
-              className="border rounded-md p-2"
+              className="border rounded-md p-2 mr-10"
             >
               <option value={2}>2</option>
               <option value={4}>4</option>
@@ -89,6 +90,12 @@ const DashboardPage = () => {
               <option value={10}>10</option>
               <option value={12}>12</option>
             </select>
+            <Link
+              to="/users/create"
+              className="bg-blue-600 hover:bg-blue-800 text-white font-bold py-2 px-4 rounded"
+            >
+              Create User
+            </Link>
           </div>
 
           <table className="table-auto w-full">

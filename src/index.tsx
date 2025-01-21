@@ -6,6 +6,7 @@ import LoginPage from "./pages/LoginPage.tsx";
 import RegisterPage from "./pages/RegisterPage.tsx";
 import DashboardPage from "./pages/DashboardPage.tsx";
 import AuthComponent from "./components/AuthComponent.tsx";
+import CreateEditUserPage from "./pages/CreateEditUserPage.tsx";
 
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement
@@ -22,6 +23,22 @@ root.render(
           element={
             <AuthComponent>
               <DashboardPage />
+            </AuthComponent>
+          }
+        />
+        <Route
+          path="/users/:userId/edit"
+          element={
+            <AuthComponent>
+              <CreateEditUserPage />
+            </AuthComponent>
+          }
+        />
+        <Route
+          path="/users/create"
+          element={
+            <AuthComponent>
+              <CreateEditUserPage />
             </AuthComponent>
           }
         />

@@ -5,7 +5,7 @@ import { UserCreate } from "../@types";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import { toast, ToastContainer } from "react-toastify";
-import { PATH_DASHBOARD } from "../routes/paths.ts";
+import { PATH_API, PATH_DASHBOARD } from "../routes/paths.ts";
 
 const schema = yup.object({
   first_name: yup.string().required("First name is required"),
@@ -27,7 +27,7 @@ const CreateEditUserPage = () => {
   const fetchData = async () => {
     if (userId) {
       try {
-        const response = await fetch(`https://reqres.in/api/users/${userId}`);
+        const response = await fetch(PATH_API.users.read(userId));
         const data = await response.json();
         if (!response.ok) {
           throw new Error(`Failed to fetch user: ${data.error}`);
@@ -49,8 +49,8 @@ const CreateEditUserPage = () => {
     try {
       const method = userId ? "PUT" : "POST";
       const url = userId
-        ? `https://reqres.in/api/users/${userId}`
-        : "https://reqres.in/api/users";
+        ? PATH_API.users.update(userId)
+        : PATH_API.users.create;
 
       const response = await fetch(url, {
         method: method,

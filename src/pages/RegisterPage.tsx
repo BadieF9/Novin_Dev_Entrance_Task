@@ -3,7 +3,7 @@ import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import { Link, useNavigate } from "react-router-dom";
-import { PATH_AUTH, PATH_DASHBOARD } from "../routes/paths.ts";
+import { PATH_API, PATH_AUTH, PATH_DASHBOARD } from "../routes/paths.ts";
 
 const schema = yup.object({
   email: yup.string().email().required("Email is required"),
@@ -32,7 +32,7 @@ const RegisterPage = () => {
   const onSubmit = async (data) => {
     setIsLoading(true);
     try {
-      const response = await fetch("https://reqres.in/api/register", {
+      const response = await fetch(PATH_API.auth.register, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

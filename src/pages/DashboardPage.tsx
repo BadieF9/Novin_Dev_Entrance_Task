@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { User } from "../@types";
 import { toast, ToastContainer } from "react-toastify";
-import { PATH_AUTH, PATH_DASHBOARD } from "../routes/paths.ts";
+import { PATH_API, PATH_AUTH, PATH_DASHBOARD } from "../routes/paths.ts";
 
 const DashboardPage = () => {
   const [users, setUsers] = useState<User[]>([]);
@@ -27,7 +27,7 @@ const DashboardPage = () => {
   ) => {
     try {
       const response = await fetch(
-        `https://reqres.in/api/users?page=${pageNumber}&per_page=${usersNumberPerPage}`
+        `${PATH_API.users.readAll}?page=${pageNumber}&per_page=${usersNumberPerPage}`
       );
       if (!response.ok) {
         throw new Error("Failed to fetch users");
@@ -68,7 +68,7 @@ const DashboardPage = () => {
   const handleDeleteUser = async (userId: number) => {
     if (window.confirm("Are you sure you want to delete this user?")) {
       try {
-        const response = await fetch(`https://reqres.in/api/users/${userId}`, {
+        const response = await fetch(PATH_API.users.delete(String(userId)), {
           method: "DELETE",
         });
 
